@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using System;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,12 +59,33 @@ app.MapPost("/products/create", async (Product product, IDistributedCache distri
     return Results.Ok();
 });
 
+
 app.MapGet("/products", async (IDistributedCache distributedCache) =>
 {
     string d = await distributedCache.GetStringAsync("product:1");
     var product = JsonConvert.DeserializeObject<Product>(d);
     return Results.Ok(product);
 }).WithName("GetProducts");
+
+app.MapPost("/category/create", async (Category category, IDistributedCache distributedCache) =>
+{
+    DistributedCacheEntryOptions distributedCacheEntryOptions = new DistributedCacheEntryOptions();
+    distributedCacheEntryOptions.AbsoluteExpiration = DateTime.Now.AddMinutes(1);
+    string json = JsonConvert.SerializeObject(category);
+    Byte[] categoryByte = Encoding.UTF8.GetBytes(json);
+
+    await distributedCache.SetAsync("category:1", categoryByte, distributedCacheEntryOptions);
+    return Results.Ok();
+});
+
+app.MapGet("/categories", async (IDistributedCache distributedCache) =>
+{
+    Byte[] categoryByte = await distributedCache.GetAsync("category:1");
+    string categoryJson = Encoding.UTF8.GetString(categoryByte);
+
+    var category = JsonConvert.DeserializeObject<Category>(categoryJson);
+    return Results.Ok(category);
+}).WithName("GetCategory");
 
 app.MapGet("/data", (IDistributedCache distributedCache) =>
 {
@@ -84,4 +106,10 @@ internal class Product
     public int Id { get; set; }
     public string Name { get; set; }    
 
+}
+
+internal class Category
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
 }
