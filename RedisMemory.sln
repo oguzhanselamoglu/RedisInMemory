@@ -5,7 +5,12 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E1826BB6-3330-4842-B44D-A0A42CA3FB3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisMemory.Api", "src\RedisMemory.Api\RedisMemory.Api.csproj", "{0299812D-02E3-4F4B-BA86-FA96ADA6618E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisMemory.Api", "src\RedisMemory.Api\RedisMemory.Api.csproj", "{0299812D-02E3-4F4B-BA86-FA96ADA6618E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1EC5AEE8-D9F8-4EE9-AE37-E273CD54C74C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
