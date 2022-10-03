@@ -20,3 +20,5 @@
 GET name
 GET surname
 ```
+
+## StackExchange.Redis nuget package

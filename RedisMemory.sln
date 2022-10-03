@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisStackExchange.Api", "src\RedisStackExchange.Api\RedisStackExchange.Api.csproj", "{4497413E-828F-488E-9169-D42719A4383D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,12 +24,17 @@ Global
 		{0299812D-02E3-4F4B-BA86-FA96ADA6618E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0299812D-02E3-4F4B-BA86-FA96ADA6618E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0299812D-02E3-4F4B-BA86-FA96ADA6618E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4497413E-828F-488E-9169-D42719A4383D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4497413E-828F-488E-9169-D42719A4383D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4497413E-828F-488E-9169-D42719A4383D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4497413E-828F-488E-9169-D42719A4383D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0299812D-02E3-4F4B-BA86-FA96ADA6618E} = {E1826BB6-3330-4842-B44D-A0A42CA3FB3D}
+		{4497413E-828F-488E-9169-D42719A4383D} = {E1826BB6-3330-4842-B44D-A0A42CA3FB3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {576C1306-8032-4DAE-8409-0B4A36438C57}

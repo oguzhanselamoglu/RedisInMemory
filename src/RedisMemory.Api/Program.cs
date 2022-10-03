@@ -42,12 +42,13 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast");
 
+#region IDistributedCache operation
 app.MapGet("/setdata", (IDistributedCache distributedCache) =>
 {
-    DistributedCacheEntryOptions distributedCacheEntryOptions = new DistributedCacheEntryOptions();
-    distributedCacheEntryOptions.AbsoluteExpiration = DateTime.Now.AddMinutes(1);
-    distributedCache.SetString("data", "ABC", distributedCacheEntryOptions);
-    return Results.Ok();
+DistributedCacheEntryOptions distributedCacheEntryOptions = new DistributedCacheEntryOptions();
+distributedCacheEntryOptions.AbsoluteExpiration = DateTime.Now.AddMinutes(1);
+distributedCache.SetString("data", "ABC", distributedCacheEntryOptions);
+return Results.Ok();
 }).WithName("setdata");
 
 app.MapPost("/products/create", async (Product product, IDistributedCache distributedCache) =>
@@ -87,12 +88,34 @@ app.MapGet("/categories", async (IDistributedCache distributedCache) =>
     return Results.Ok(category);
 }).WithName("GetCategory");
 
+app.MapPost("/image/cache", async (IDistributedCache distributedCache) =>
+{
+    DistributedCacheEntryOptions distributedCacheEntryOptions = new DistributedCacheEntryOptions();
+    distributedCacheEntryOptions.AbsoluteExpiration = DateTime.Now.AddMinutes(1);
+    string path = Path.Combine(Directory.GetCurrentDirectory(), "Images/download.jpg");
+    byte[] imageByte = File.ReadAllBytes(path);
+
+    await distributedCache.SetAsync("image", imageByte, distributedCacheEntryOptions);
+    return Results.Ok();
+});
+
+app.MapGet("/image", async (IDistributedCache distributedCache) =>
+{
+    Byte[] categoryByte = await distributedCache.GetAsync("image");
+    return Results.File(categoryByte, "image/jpg");
+}).WithName("GetImage");
+
 app.MapGet("/data", (IDistributedCache distributedCache) =>
 {
 
     string d = distributedCache.GetString("data");
     return Results.Ok(d);
 }).WithName("GetData");
+#endregion
+
+#region StackExcanage
+
+#endregion
 
 app.Run();
 
