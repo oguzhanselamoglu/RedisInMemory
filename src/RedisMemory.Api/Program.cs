@@ -113,9 +113,7 @@ app.MapGet("/data", (IDistributedCache distributedCache) =>
 }).WithName("GetData");
 #endregion
 
-#region StackExcanage
 
-#endregion
 
 app.Run();
 

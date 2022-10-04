@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Caching.Distributed;
 using RedisStackExchange.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,10 +36,39 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+app.MapPost("/products/create",  (Product product, RedisService service) =>
+{
+    DistributedCacheEntryOptions distributedCacheEntryOptions = new DistributedCacheEntryOptions();
+    distributedCacheEntryOptions.AbsoluteExpiration = DateTime.Now.AddMinutes(1);
+   
+    service.Add<Product>("product",product);
+    return Results.Ok();
+});
 
+
+app.MapGet("/products", async (RedisService service) =>
+{
+    Product? product = service.Get<Product>("product");
+
+
+    return Results.Ok(product);
+}).WithName("GetProducts");
 app.Run();
 
 internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+}
+
+internal class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+}
+
+internal class Category
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
 }
